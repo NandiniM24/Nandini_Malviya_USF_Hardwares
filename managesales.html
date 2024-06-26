@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>sales</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="bs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bs/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+ <!-- Main CSS File -->
+ <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <h1 class="sitename">&nbsp USF Hardwares</h1> <span>.</span>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="managesales.html" class="active">Manage Sales</a></li>
+                    <li><a href="analytics.html">Data Analytics</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <!-- Page Title -->
+    <div class="page-title" style="background-image: url(img/sales.jpg);">
+      
+    </div><!-- End Page Title -->
+
+        <div class="container">
+            <h1>Manage Sales</h1>
+            <div class="form-section">
+                <form id="salesForm">
+                    <label for="product">Product:</label>
+                    <select id="product" name="product" class="form-control">
+                        <option value="">Select a product</option>
+                        <option value="CPU">Central Processing Unit (CPU)</option>
+                        <option value="GPU">Graphics Processing Unit (GPU)</option>
+                        <option value="HDD">Hard Disk Drive (HDD)</option>
+                        <option value="Keyboard">Keyboard</option>
+                        <option value="RAM">Memory (RAM)</option>
+                        <option value="Monitor">Monitor</option>
+                        <option value="Motherboard">Motherboard</option>
+                        <option value="Mouse">Mouse</option>
+                        <option value="PSU">Power Supply Unit (PSU)</option>
+                        <option value="SSD">Solid State Drive (SSD)</option>
+                        <option value="Sound Card">Sound Card</option>
+                        <option value="Speakers">Speakers</option>
+                        <option value="System Cooling">System Cooling</option>
+                        <option value="Touchpad">Touchpad</option>
+                        <option value="USB">USB (Universal Serial Bus)</option>
+                        <option value="Video Card">Video Card</option>
+                    </select>
+                    <br>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control"><br>
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" class="form-control"><br>
+                    <button type="button" onclick="createEntry()" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+
+            <div class="form-section">
+                <h2>Sales Records</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        <tr>
+                            <td>GPU</td>
+                            <td>10</td>
+                            <td>$500</td>
+                        </tr>
+                        <tr>
+                                <td>CPU</td>
+                                <td>20</td>
+                                <td>$300</td>
+                        </tr>
+                    </thead>
+                    <tbody id="salesTableBody">
+                        <!-- Data will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let salesData = [];
+
+        function renderTable() {
+            const salesTableBody = document.getElementById('salesTableBody');
+            salesTableBody.innerHTML = '';
+            salesData.forEach((entry, index) => {
+                salesTableBody.innerHTML += `
+                    <tr>
+                        <td>${entry.product}</td>
+                        <td><input type="number" value="${entry.quantity}" onchange="updateEntry(${index}, 'quantity', this.value)" class="form-control"></td>
+                        <td><input type="number" value="${entry.price}" onchange="updateEntry(${index}, 'price', this.value)" class="form-control"></td>
+                        <td><button class="btn btn-danger" onclick="deleteEntry(${index})">Delete</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function createEntry() {
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+            const price = document.getElementById('price').value;
+
+            if (product && quantity && price) {
+                salesData.push({ product, quantity, price });
+                renderTable();
+                document.getElementById('salesForm').reset();
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+
+        function updateEntry(index, field, value) {
+            salesData[index][field] = value;
+            renderTable();
+        }
+
+        function deleteEntry(index) {
+            salesData.splice(index, 1);
+            renderTable();
+        }
+    </script>
+</body>
+
+</html>

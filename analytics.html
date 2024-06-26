@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Analysis</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="bs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bs/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+ 
+  <!-- Main CSS File -->
+  <link href="css/main.css" rel="stylesheet">
+
+ </head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="analytics.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">&nbsp USF Hardwares</h1> <span>.</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="managesales.html">Manage Sales</a></li>
+          <li><a href="analytics.html" class="active">Data Analytics</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+   <!-- Page Title -->
+   <div class="page-title" style="background-image: url(img/analysis.jpg);">
+    <div class="container position-relative">
+     
+      
+    </div>
+  </div><!-- End Page Title -->
+
+    <!-- Charts Section -->
+    <div class="container mt-5">
+      <div class="row">
+        <!-- Sales Chart -->
+        <div class="col-lg-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Sales Chart</h5>
+              <canvas id="sales-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Chart -->
+        <div class="col-lg-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Price Chart</h5>
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!--  JS Files -->
+  <script src="js/main.js"></script>
+  <script src="bs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+  <!-- Chart Initialization Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sales Chart
+      const salesCtx = document.getElementById('sales-chart').getContext('2d');
+      const salesChart = new Chart(salesCtx, {
+        type: 'bar',
+        data: {
+          labels: ['GPU', 'CPU', 'RAM', 'Motherboard'],
+          datasets: [{
+            label: 'Sales',
+            data: [45, 24, 30, 38],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });     
+
+      // Price Chart
+      const priceCtx = document.getElementById('priceChart').getContext('2d');
+      const priceChart = new Chart(priceCtx, {
+        type: 'polarArea',
+        data: {
+          labels: ['GPU', 'CPU', 'RAM', 'Motherboard'],
+          datasets: [{
+            label: 'Price',
+            data: [6000, 7200, 9000, 9000],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
